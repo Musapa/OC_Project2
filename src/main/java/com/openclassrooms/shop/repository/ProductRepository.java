@@ -40,15 +40,26 @@ public class ProductRepository {
     /**
      * @return All products from the inventory
      */
-    public Product[] findAll()
-    {
-        return products.stream().filter(p -> p.getStock() > 0).sorted(Comparator.comparing(Product::getName)).toArray(Product[]::new);
-    }
+    public List<Product> findAll() {
+    	return products.stream().filter(p -> p.getStock() > 0).sorted(Comparator.comparing(Product::getName)).collect(Collectors.toList());
+    }      
+
 
     /**
      * @param productId ID of the getProductById
      * @param quantityToRemove Quantity of the getProductById
      */
+    
+	public Product getProductById(Long productId) {
+		for (Product p : products) {
+			if (p.getId() == productId) {
+				return p;
+			}
+		}
+		return null;
+	}   
+   
+	
     public void updateProductStocks(int productId, int quantityToRemove) {
         Product product = products.stream().filter(p -> p.getId() == productId).findFirst().get();
         product.setStock(product.getStock() - quantityToRemove);
