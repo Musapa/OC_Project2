@@ -43,7 +43,8 @@ public class ProductService {
 	 */
 	public Product getProductById(Long productId)
 	{
-		// TODO implement the method
+		// Method was returning null and it need to return product from inventory by 
+		// making a method „getProductById(productId)” in „productRepository”.
 		return productRepository.getProductById(productId);
 
 	}
@@ -54,8 +55,7 @@ public class ProductService {
 	 */
 	public void updateProductQuantities(Long productId, int quantity)
 	{
-
-		// TODO implement the method
+		// If product is not null we subduct quantity from the existing quantity of product. 
 		Product product = getProductById(productId);
 		
 		if (product != null) {

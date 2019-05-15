@@ -8,13 +8,15 @@ public class Cart {
 
 	// create a cartline list
 	private List<CartLine> cartLineList = new ArrayList<>();
-
+	
 	/**
 	 *
 	 * @return the actual cartline list
 	 */
 	public List<CartLine> getCartLineList() {
+		//previously it was returning empty list, every time getCartLineList was called
 		return cartLineList;
+		
 	}
 
 	/**
@@ -25,16 +27,15 @@ public class Cart {
 	 * @param quantity the quantity
 	 */
 	public void addItem(Product product, int quantity) {
-		// TODO implement the method
-
-		// search the cartline list for the product
+		// search the Cartline list for the product
 		for (CartLine cartLine : getCartLineList()) {
+			// check if product in cartline matches the product that we looking for
 			if (cartLine.getProduct().equals(product)) {
 				cartLine.setQuantity(quantity + cartLine.getQuantity());
-				return;
+				return;	//we found the product, exit the loop and the method
 			}
 		}
-
+		//no cartline is found with the product so add new cart line 
 		cartLineList.add(new CartLine(product, quantity));
 	}
 
@@ -51,7 +52,8 @@ public class Cart {
 	 * @return total value of a cart
 	 */
 	public double getTotalValue() {
-		// TODO implement the method
+		// We loop throught cartline and add subtotal to result variable.
+		// The method returns result
 		double result = 0;
 		for (CartLine c : getCartLineList()) {
 			result += c.getSubtotal();
@@ -63,7 +65,8 @@ public class Cart {
 	 * @return Get average value of a cart
 	 */
 	public double getAverageValue() {
-		// TODO implement the method
+		// We loop through cartline and add quantity to quantity variable. 
+		// The method returns getTotalValue divide by quantity.
 		int quantity = 0;
 		for (CartLine cartLine : getCartLineList()) {
 			quantity += cartLine.getQuantity();
@@ -76,12 +79,13 @@ public class Cart {
 	 * @return getProductById in the cart if it finds it
 	 */
 	public Product findProductInCartLines(Long productId) {
-		// TODO implement the method
+		// We loop through cartLine and if product of cartline is equals 
+		// as prodoctId parameter we return cart line product. If we don't find return null.
 		for (CartLine cartLine : getCartLineList()) {
 			if (cartLine.getProduct().getId().equals(productId)) {
 				return cartLine.getProduct();
 			}
-		}
+		} 
 		return null;
 
 	}
